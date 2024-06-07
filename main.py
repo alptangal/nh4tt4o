@@ -7,6 +7,7 @@ import random
 from nhattao import *
 from guild import *
 import server
+import sys
 
 
 
@@ -28,9 +29,9 @@ async def on_ready():
     try:
         req=requests.get('http://localhost:8888')
         print(req.status_code)
-        await client.close() 
+        #await client.close() 
         print('Client closed')
-        exit()
+        sys.exit('Exited')
     except:
         server.b()  
         guild = client.get_guild(GUILD_ID)
