@@ -32,7 +32,8 @@ async def on_ready():
         #await client.close() 
         print('Client closed')
         sys.exit('Exited')
-    except:
+    except Exception as err:
+        
         server.b()  
         guild = client.get_guild(GUILD_ID)
         result = await getBasic(guild)
@@ -59,6 +60,7 @@ async def on_ready():
                         for tag in tags:
                             if tag.name.lower() == 'deleted':
                                 await result['logsCh'].create_thread(name=username, content=header["message"])
+                                print(666666)
             else:
                 header = await login(username, result['password'])
                 if 'headers' in header and header['headers'] != None:
@@ -73,6 +75,7 @@ async def on_ready():
                     for tag in tags:
                         if tag.name.lower() == 'deleted':
                             await result['logsCh'].create_thread(name=username, content=header["message"], applied_tags=[tag])
+                            print(55555)
         if not bumpTask.is_running():
             bumpTask.start(guild)
         if not updateThread.is_running():
@@ -142,6 +145,7 @@ async def updateThread(guild):
                                         title = product['title'][0:94-len(product['id'])]+(
                                             '...' if len(product['title']) > 94 else '')+'- '+product['id']
                                         threadNew = await thread.parent.create_thread(name=title, content=product['url'])
+                                        print(44444)
                                         await threadNew.thread.send('✅ '+header['username'])
                                         THREADS.append(threadNew.thread)
                                         THREADS.remove(thread)
@@ -217,6 +221,7 @@ async def updateUsername(guild):
                     for tag in tags:
                         if tag.name.lower() == 'deleted':
                             await result['logsCh'].create_thread(name=username, content=header["message"], applied_tags=[tag])
+                            print(333333)
                     for header in HEADERS:
                         if username in header['username']:
                             HEADERS.remove(header)
@@ -232,6 +237,7 @@ async def updateUsername(guild):
                 for tag in tags:
                     if tag.name.lower() == 'deleted':
                         await result['logsCh'].create_thread(name=username, content=header["message"], applied_tags=[tag])
+                        print(22222)
                 for header in HEADERS:
                     if username in header['username']:
                         HEADERS.remove(header)
@@ -267,6 +273,7 @@ async def bumpTask(guild):
                     title = product['title'][0:94-len(product['id'])]+(
                         '...' if len(product['title']) > 94 else '')+'- '+product['id']
                     thread = await result['threadsCh'].create_thread(name=title, content=product['url'])
+                    print(11111)
                     await thread.thread.send('✅ '+header['username'])
                     await thread.thread.send(rs)
                     THREADS.append(thread.thread) 
